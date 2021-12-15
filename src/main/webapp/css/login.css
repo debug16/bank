@@ -1,0 +1,25 @@
+.title {
+    margin-bottom: 100px;
+}
+
+.login_form {
+    -webkit-box-shadow: 0 0 9px 3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 9px 1px rgb(199 197 197 / 50%);
+    padding: 50px 60px 60px 60px;
+    border-radius: 10px;
+}
+
+.login_form .form-group {
+    padding-bottom: 30px;
+}
+
+.login_form .login_btn {
+    margin: 20px auto 0 auto;
+    display: flex;
+    padding: 0 65px;
+    justify-content: space-evenly;
+}
+
+body {
+    margin: 100px 0;
+}
