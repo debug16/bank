@@ -65,7 +65,11 @@ public class AccountService {
             cn.setAutoCommit(false);
             //判断账号是否正确
             Account account = ad.login(accountID, password);
-            if (account == null) return false;
+            if (account == null) {
+                cn.rollback();
+                Conn.ClossAll(cn, null, null);
+                return false;
+            }
 
             //获取用户余额
             double money = ad.getMoney(accountID);
@@ -138,7 +142,11 @@ public class AccountService {
             Account account = ad.login(accountID, password);
             //判断转入账号是非存在
             boolean hasAccount = this.hasAccount(toAccountId);
-            if (account == null || !hasAccount) return false;
+            if (account == null || !hasAccount) {
+                cn.rollback();
+                Conn.ClossAll(cn, null, null);
+                return false;
+            }
 
             //获取用户余额
             double money = ad.getMoney(accountID);
