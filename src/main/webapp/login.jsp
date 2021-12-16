@@ -1,12 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
     <title>个人网上银行系统</title>
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/login.css">
 </head>
-<body>
+<body class="login">
 <div class="container">
     <div class="row clearfix title">
         <div class="col-md-12 column">
@@ -15,22 +16,27 @@
             </h1>
         </div>
     </div>
+    <c:if test="${!empty failMsg }">
+        <div class="alert alert-danger">${failMsg }</div>
+    </c:if>
     <div class="row clearfix justify-content-center">
         <div class="col-sm-5 column ">
-            <form class="form-horizontal login_form" action="user_login">
-            <h1 class="text-center h2">
-                登录
-            </h1>
+            <form class="form-horizontal login_form" action="user_login" method="post">
+                <h1 class="text-center h2">
+                    登录
+                </h1>
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">账号：</label>
                     <div class="col-sm-12">
-                        <input type="text" name="name" class="form-control" id="inputEmail3" required/>
+                        <input type="text" name="name" class="form-control" id="inputEmail3" required
+                               value="${param.name}" autofocus/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">密码：</label>
                     <div class="col-sm-12">
-                        <input type="password" name="password" class="form-control" id="inputPassword3" required/>
+                        <input type="password" name="password" class="form-control" id="inputPassword3" required
+                               value="${param.password}" maxlength="6"/>
                     </div>
                 </div>
                 <div class="login_btn">

@@ -2,7 +2,7 @@
     margin-bottom: 100px;
 }
 
-.login_form {
+body.login .login_form,.transfer .login_form{
     -webkit-box-shadow: 0 0 9px 3px rgba(0, 0, 0, 0.5);
     box-shadow: 0 0 9px 1px rgb(199 197 197 / 50%);
     padding: 50px 60px 60px 60px;
@@ -13,6 +13,17 @@
     padding-bottom: 30px;
 }
 
+
+.transfer .login_form{
+    padding: 50px 100px 60px 100px;
+}
+.transfer .login_form .form-group {
+    padding-bottom: 10px;
+}
+.login_form .form-group{
+    padding-bottom: 20px;
+}
+
 .login_form .login_btn {
     margin: 20px auto 0 auto;
     display: flex;
@@ -20,6 +31,11 @@
     justify-content: space-evenly;
 }
 
-body {
+body.login {
     margin: 100px 0;
+}
+
+.trade .trade_form{
+    padding: 45px 50px 0 50px;
+    border-radius: 10px;
 }

@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>网上银行</title>
@@ -19,9 +20,14 @@
 <br>
 <br>
 <div class="container-fluid">
-    <div class="alert alert-success">
-        <strong>你的账户余额为：</strong><strong class="text-danger">￥10000?</strong>
-    </div>
+    <c:if test="${!empty balance }">
+        <div class="alert alert-success">
+            <strong>你的账户余额为：</strong><strong class="text-danger">${balance}</strong>
+        </div>
+    </c:if>
+    <c:if test="${empty balance and !empty failMsg}">
+        <div class="alert alert-danger">${failMsg}</div>
+    </c:if>
 </div>
 </body>
 </html>

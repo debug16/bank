@@ -14,13 +14,16 @@
                 <a class="nav-link" href="index.jsp">个人首页</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="balance.jsp">账号余额查询</a>
+                <a class="nav-link" href="balance">账号余额查询</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="trade.jsp">交易记录查询</a>
+                <a class="nav-link" href="trade_list">交易记录查询</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="transfer.jsp">行内单笔转账</a>
+                <a class="nav-link" href="transfer.jsp">单笔转账</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="access.jsp">存取款业务</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="logout">退出系统</a>

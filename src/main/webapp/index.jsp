@@ -12,11 +12,6 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <script src="js/bootstrap.min.js"></script>
-<%--    <style>--%>
-<%--        .alert{--%>
-<%--            font-size: 20px;--%>
-<%--        }--%>
-<%--    </style>--%>
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
@@ -25,7 +20,7 @@
 <div class="container-fluid">
     <div class="alert alert-success alert-dismissible fade show">
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>欢迎使用个人网上银行系统！！！</strong><a href="balance.jsp" class="alert-link">查看余额</a>
+        <strong>欢迎用户${user.accountId}使用个人网上银行系统！！！</strong><a href="balance" class="alert-link">查看余额</a>
     </div>
 </div>
 </body>
