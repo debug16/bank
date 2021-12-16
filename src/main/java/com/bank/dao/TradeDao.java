@@ -45,11 +45,13 @@ public class TradeDao {
         return i;
     }
 
-    public List<Trade> getAllTradeByAccountId(String accountId) throws SQLException {
-        String sql = "SELECT * FROM `bank`.`trade` WHERE `AccountID` = ? ORDER BY trade.ID DESC";
+    public List<Trade> selectPageByAccountId(int pageNumber, int pageSize, String accountId) throws SQLException {
+        String sql = "SELECT * FROM `bank`.`trade` WHERE `AccountID` = ? ORDER BY trade.ID DESC LIMIT ?,?";
         cn = conn.getConn();
         ps = cn.prepareStatement(sql);
         ps.setString(1, accountId);
+        ps.setInt(2, pageNumber);
+        ps.setInt(3, pageSize);
         rs = ps.executeQuery();
         List<Trade> tradeList = new ArrayList<>();
         while (rs.next()) {
@@ -65,13 +67,15 @@ public class TradeDao {
         return tradeList;
     }
 
-    public List<Trade> getBetweenTime(String accountId, String time1, String time2) throws SQLException {
-        String sql = "SELECT trade.* FROM trade WHERE trade.TradeTime BETWEEN ? AND ? AND trade.AccountID = ?";
+    public List<Trade> getBetweenTime(int pageNumber, int pageSize, String accountId, String time1, String time2) throws SQLException {
+        String sql = "SELECT trade.* FROM trade WHERE trade.TradeTime BETWEEN ? AND ? AND trade.AccountID = ? ORDER BY trade.ID DESC LIMIT ?,?";
         cn = conn.getConn();
         ps = cn.prepareStatement(sql);
         ps.setString(1, time1);
         ps.setString(2, time2);
         ps.setString(3, accountId);
+        ps.setInt(4, pageNumber);
+        ps.setInt(5, pageSize);
         rs = ps.executeQuery();
         List<Trade> tradeList = new ArrayList<>();
         while (rs.next()) {
@@ -85,5 +89,40 @@ public class TradeDao {
         }
         Conn.ClossAll(cn, ps, rs);
         return tradeList;
+    }
+
+    /**
+     * 获取账户的交易记录总数
+     *
+     * @param accountId 账户名
+     * @return int
+     * @throws SQLException
+     */
+    public int getCountByAccountId(String accountId) throws SQLException {
+        int goodsCount = 0;
+        String sql = "select count(*) acc from `trade` where `AccountID`= ?";
+        cn = conn.getConn();
+        ps = cn.prepareStatement(sql);
+        ps.setString(1, accountId);
+        rs = ps.executeQuery();
+        rs.next();
+        goodsCount = rs.getInt("acc");
+        Conn.ClossAll(cn, ps, rs);
+        return goodsCount;
+    }
+
+    public int getCountByTime(String accountId, String t1, String t2) throws SQLException {
+        int goodsCount = 0;
+        String sql = "select count(*) acc from `trade` where `AccountID`= ? And trade.TradeTime BETWEEN ? AND ?";
+        cn = conn.getConn();
+        ps = cn.prepareStatement(sql);
+        ps.setString(1, accountId);
+        ps.setString(2, t1);
+        ps.setString(3, t2);
+        rs = ps.executeQuery();
+        rs.next();
+        goodsCount = rs.getInt("acc");
+        Conn.ClossAll(cn, ps, rs);
+        return goodsCount;
     }
 }

@@ -92,7 +92,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${tradeList}" var="t">
+            <c:forEach items="${p.list}" var="t">
                 <tr class="tradeRow">
                     <td>${t.id}</td>
                     <td>
@@ -112,6 +112,17 @@
             </tbody>
         </table>
     </div>
+    <c:if test="${type == 0}">
+        <jsp:include page="/page.jsp">
+            <jsp:param value="/trade_list" name="url"/>
+        </jsp:include>
+    </c:if>
+    <c:if test="${type == 1}">
+        <jsp:include page="/page.jsp">
+            <jsp:param value="/tradeList_byTime" name="url"/>
+            <jsp:param value="&startTime=${startTime}&endTime=${endTime}" name="param"/>
+        </jsp:include>
+    </c:if>
 </div>
 </body>
 </html>

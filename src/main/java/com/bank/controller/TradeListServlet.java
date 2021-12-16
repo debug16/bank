@@ -1,6 +1,7 @@
 package com.bank.controller;
 
 import com.bank.model.Account;
+import com.bank.model.Page;
 import com.bank.model.Trade;
 import com.bank.service.TradeService;
 
@@ -25,9 +26,25 @@ public class TradeListServlet extends HttpServlet {
             response.sendRedirect("login.jsp");
             return;
         }
+        //初始化默认值
+        int pageNumber = 1;
+        Page page = null;
+
+        //获取参数
+        String tempPageNumber = request.getParameter("pageNumber");
+
+        //如果传了就赋值
+        if (tempPageNumber != null && !"".equals(tempPageNumber)) {
+            //防止页码小于1
+            pageNumber = Integer.parseInt(tempPageNumber) <= 0 ? 1 : Integer.parseInt(tempPageNumber);
+        }
+
+
         TradeService ts = new TradeService();
-        List<Trade> tradeList = ts.getAllTradeByAccountId(user.getAccountId());
-        request.getSession().setAttribute("tradeList",tradeList);
-        response.sendRedirect("trade.jsp");
+        page = ts.selectPageByAccountID(pageNumber, user.getAccountId());
+        request.setAttribute("type", 0);
+        request.getSession().setAttribute("p", page);
+        request.getRequestDispatcher("trade.jsp").forward(request, response);
+
     }
 }
