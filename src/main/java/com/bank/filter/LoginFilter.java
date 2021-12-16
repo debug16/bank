@@ -8,7 +8,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebFilter(filterName = "LoginFilter", value = "/*")
+@WebFilter(filterName = "LoginFilter",
+        servletNames = {
+                "TransferServlet", "TradeListByTimeServlet", "TradeListServlet", "TransferServlet"
+        },
+        value = {
+                "/index.jsp",
+                "/transfer.jsp",
+                "/access.jsp"
+        })
 public class LoginFilter implements Filter {
     public void init(FilterConfig config) throws ServletException {
     }
@@ -24,28 +32,10 @@ public class LoginFilter implements Filter {
 
         Account user = (Account) req.getSession().getAttribute("user");
 
-        System.out.println("req.getServletPath() = " + req.getServletPath());
-        System.out.println("req.getContextPath() = " + req.getContextPath());
-
-//        if (req.getServletPath().equals("/login.jsp") || req.getServletPath().equals("/user_login")) {
-//            System.out.println(1);
-//            chain.doFilter(request, response);
-//        } else if (user != null) {
-//            System.out.println(2);
-//            chain.doFilter(request, response);
-//        } else {
-//            resp.sendRedirect(req.getContextPath() + "/login.jsp");
+        if (user == null) {
+            resp.sendRedirect("login.jsp");
+        } else {
             chain.doFilter(request, response);
-//            System.out.println(3);
-//        }
-        //登录了，就不拦截了
-//        if (req.getServletPath().equals("/login.jsp") || req.getServletPath().equals("/user_login")) {
-//            chain.doFilter(request, response);
-//        } else if (user == null) { //登录页面和登录的接口不需要拦截
-////            resp.sendRedirect("login.jsp");
-//            req.getRequestDispatcher("login.jsp").forward(request, response);
-//        } else { //没有登录就拦截
-//            chain.doFilter(request, response);
-//        }
+        }
     }
 }
