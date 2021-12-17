@@ -37,8 +37,8 @@
     <div class="row clearfix justify-content-center">
         <div class="col-sm-6 column">
             <form class="form-horizontal login_form" action="transfer" method="post">
-                <h1 class="text-center h2 mb-4">
-                    转账
+                <h1 class="text-center h    2 mb-4">
+                    余额转账
                 </h1>
                 <div class="form-group">
                     <label for="inputAccount" class="col-sm-12 control-label">对方账号：</label>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="form-group">
                     <label for="inputMoney" class="col-sm-12 control-label">金额：</label>
-                    <div class="col-sm-12">
+                    <div class="col-sm -12">
                         <input type="number" name="money" class="form-control" id="inputMoney" required/>
                     </div>
                 </div>
