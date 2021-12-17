@@ -34,6 +34,12 @@ public class AccountService {
         return null;
     }
 
+    /**
+     * 查找账户是否存在
+     *
+     * @param account 账户
+     * @return boolean
+     */
     public boolean hasAccount(String account) {
         try {
             return ad.hasAccount(account);
@@ -79,7 +85,11 @@ public class AccountService {
             boolean tradeFlag = false;
 
             //交易类型不能超出指定范围
-            if (trade.getTradeType() < 1 || trade.getTradeType() > 3) return false;
+            if (trade.getTradeType() < 1 || trade.getTradeType() > 3) {
+                cn.rollback();
+                Conn.ClossAll(cn, null, null);
+                return false;
+            }
 
             //存款 存款金额必须大于0
             if (trade.getTradeType() == 1 && trade.getTradeMoney() > 0) {
@@ -156,7 +166,11 @@ public class AccountService {
             boolean tradeFlag = false;
 
             //交易类型不能超出指定范围
-            if (trade.getTradeType() != 3) return false;
+            if (trade.getTradeType() != 3) {
+                cn.rollback();
+                Conn.ClossAll(cn, null, null);
+                return false;
+            }
 
             if (money >= trade.getTradeMoney() && trade.getTradeMoney() > 0) { //转账 余额必须大于交易金额 转账金额大于0
                 //转账人减少金额
@@ -198,6 +212,13 @@ public class AccountService {
         return flag;
     }
 
+    /**
+     * 获取账户的余额
+     *
+     * @param account 账户
+     * @return double 余额
+     * @throws SQLException
+     */
     public double getMoney(String account) throws SQLException {
         return ad.getMoney(account);
     }

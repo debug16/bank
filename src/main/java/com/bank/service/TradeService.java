@@ -27,6 +27,12 @@ public class TradeService {
         return false;
     }
 
+    /**
+     * 获取指定页的交易数据
+     * @param pageNumber 第几页
+     * @param accountId 账户
+     * @return Page
+     */
     public Page selectPageByAccountID(int pageNumber, String accountId) {
 
         Page page = new Page();
@@ -71,6 +77,14 @@ public class TradeService {
         return page;
     }
 
+    /**
+     * 获取指定页交易数据 通过开始时间和结束时间
+     * @param pageNumber 页码
+     * @param accountId 账户
+     * @param t1 开始时间
+     * @param t2 结束时间
+     * @return Page
+     */
     public Page selectPageBytime(int pageNumber, String accountId, String t1, String t2) {
         Page page = new Page();
         //初始化默认一页多少数量
