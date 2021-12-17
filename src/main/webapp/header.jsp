@@ -26,8 +26,28 @@
                 <a class="nav-link" href="access.jsp">存取款业务</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="logout">退出系统</a>
+                <a class="nav-link" href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#logoutModal">退出系统</a>
+                <div class="modal fade" id="logoutModal">
+                    <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <!-- 模态框头部 -->
+                            <div class="modal-header">
+                                <h5 class="modal-title">退出系统</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+                            <!-- 模态框内容 -->
+                            <div class="modal-body">
+                                <strong>你确定退出系统吗？</strong>
+                            </div>
+                            <!-- 模态框底部 -->
+                            <div class="modal-footer">
+                                <a href="logout" class="btn btn-danger">确定</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </li>
+
         </ul>
     </nav>
 </div>

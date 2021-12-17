@@ -25,13 +25,13 @@
     <c:if test="${!empty msg }">
         <div class="alert alert-success alert-dismissible fade show">
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>${msg}</strong><a href="balance" class="alert-link">查看余额</a>
+            <strong>${msg}</strong> <a href="trade_list" class="alert-link">查看交易记录</a>
         </div>
     </c:if>
     <c:if test="${!empty failMsg }">
         <div class="alert alert-danger alert-dismissible fade show">
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-            <strong>${failMsg}</strong><a href="balance" class="alert-link">查看余额</a>
+            <strong>${failMsg}</strong> <a href="balance" class="alert-link">查看余额</a>
         </div>
     </c:if>
     <div class="row clearfix justify-content-center">
@@ -43,7 +43,7 @@
                 <div class="form-group">
                     <label for="inputMoney" class="col-sm-12 control-label">金额：</label>
                     <div class="col-sm-12">
-                        <input type="number" name="money" class="form-control" id="inputMoney" required/>
+                        <input type="number" name="money" class="form-control" id="inputMoney" required min='0.00' step='0.01'/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -53,13 +53,13 @@
                                maxlength="6"/>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="inputDigest" class="col-sm-12 control-label">交易摘要</label>
-                    <div class="col-sm-12">
-                        <textarea type="text" name="digest" class="form-control" id="inputDigest"
-                                  maxlength="1024" rows="3"></textarea>
-                    </div>
-                </div>
+<%--                <div class="form-group">--%>
+<%--                    <label for="inputDigest" class="col-sm-12 control-label">交易摘要</label>--%>
+<%--                    <div class="col-sm-12">--%>
+<%--                        <textarea type="text" name="digest" class="form-control" id="inputDigest"--%>
+<%--                                  maxlength="1024" rows="3"></textarea>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
                 <div class="form-group">
                     <label for="inputType" class="col-sm-12 control-label">业务：</label>
                     <div class="col-sm-12">

@@ -29,12 +29,12 @@
 <br>
 <div class="container-fluid">
     <div class="d-flex justify-content-end">
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tradeTimeModal">
             查询交易记录
         </button>
     </div>
     <!-- 模态框 -->
-    <div class="modal" id="myModal">
+    <div class="modal fade" id="tradeTimeModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- 模态框头部 -->
@@ -84,11 +84,11 @@
         <table class="table table-hover">
             <thead class="table-responsive">
             <tr>
-                <th width="20%">流水号</th>
+                <th width="10%">流水号</th>
                 <th width="10%">交易类型</th>
                 <th width="10%">交易金额</th>
                 <th width="20%%">交易时间</th>
-                <th width="40%%">交易摘要</th>
+                <th width="50%%">交易摘要</th>
             </tr>
             </thead>
             <tbody>

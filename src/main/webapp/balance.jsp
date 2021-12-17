@@ -22,7 +22,7 @@
 <div class="container-fluid">
     <c:if test="${!empty balance }">
         <div class="alert alert-success">
-            <strong>你的账户余额为：</strong><strong class="text-danger">${balance}</strong>
+            <strong>你的账户余额为：</strong><strong class="text-danger">￥${balance}</strong>
         </div>
     </c:if>
     <c:if test="${empty balance and !empty failMsg}">
