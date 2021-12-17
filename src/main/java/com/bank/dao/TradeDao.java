@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2021/12/16 下午 3:12
  */
 public class TradeDao {
-    private Conn conn = new Conn();
+    private final Conn conn = new Conn();
     private Connection cn;
     private PreparedStatement ps;
     private ResultSet rs;

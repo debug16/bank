@@ -5,9 +5,14 @@ import com.bank.dao.TradeDao;
 import com.bank.model.Account;
 import com.bank.model.Trade;
 import com.bank.utils.Conn;
+import com.bank.utils.DateUtils;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author Debug16
@@ -91,6 +96,7 @@ public class AccountService {
                 return false;
             }
 
+
             //存款 存款金额必须大于0
             if (trade.getTradeType() == 1 && trade.getTradeMoney() > 0) {
                 //增加金额
@@ -100,8 +106,17 @@ public class AccountService {
                 accountFlag = ad.subMoney(cn, accountID, trade.getTradeMoney());
             }
 
-            if (accountFlag)
+            if (accountFlag) {
+                //摘要模板
+                String transferTemplate;
+                DecimalFormat df = new DecimalFormat("#.00");
+                if (trade.getTradeType() == 1)
+                    transferTemplate = "你成功存款【" + trade.getTradeMoney() + "】元，当前可用余额为【" + df.format(money + trade.getTradeMoney()) + "】元";
+                else
+                    transferTemplate = "你成功取款【" + trade.getTradeMoney() + "】元，当前可用余额为【" + df.format(money - trade.getTradeMoney()) + "】元";
+                trade.setTradeDigest(transferTemplate);
                 tradeFlag = new TradeService().addTrade(cn, trade);
+            }
 
             //操作是否成功
             flag = accountFlag && tradeFlag;
@@ -185,8 +200,15 @@ public class AccountService {
             /**
              * @TODO 可以加一个转入的记录
              */
-            if (accountFlag)
+            if (accountFlag) {
+                //获取交易后的余额
+                double m = money - trade.getTradeMoney();
+                DecimalFormat df = new DecimalFormat("#.00");
+                //摘要模板
+                String transferTemplate = "你的账户向【" + toAccountId + "】成功转账【" + trade.getTradeMoney() + "】元；当前可用余额为【" + df.format(m) + "】元";
+                trade.setTradeDigest(transferTemplate);
                 tradeFlag = new TradeService().addTrade(cn, trade);
+            }
             //操作是否成功
             flag = accountFlag && tradeFlag;
             //如果操作都成功得话就提交事务否则回滚

@@ -9,6 +9,7 @@ package com.bank.utils;
 public class StringUtils {
     /**
      * 判断一个字符串是否为空
+     *
      * @param str
      * @return
      */

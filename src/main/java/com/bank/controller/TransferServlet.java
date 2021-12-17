@@ -9,6 +9,8 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.Date;
 
 @WebServlet(name = "TransferServlet", value = "/transfer")
@@ -31,9 +33,8 @@ public class TransferServlet extends HttpServlet {
         String money = request.getParameter("money");
         String password = request.getParameter("password");
         String type = request.getParameter("type");
-        String digest = request.getParameter("digest");
 
-        AccountService ts = new AccountService();
+        AccountService as = new AccountService();
         //如果参数有一个为空
         if (!(StringUtils.isNotEmpty(money) &&
                 StringUtils.isNotEmpty(password) &&
@@ -47,13 +48,12 @@ public class TransferServlet extends HttpServlet {
         trade.setAccountId(account.getAccountId());
         trade.setTradeType(Integer.parseInt(type));
         trade.setTradeMoney(Double.parseDouble(money));
-        trade.setTradeDigest(digest);
         trade.setTradeTime(new Date());
 
         boolean flag = false;
         //存款和取款
         if (trade.getTradeType() == 1 || trade.getTradeType() == 2) {
-            flag = ts.depositAndWithd(account.getAccountId(), password, trade);
+            flag = as.depositAndWithd(account.getAccountId(), password, trade);
         } else if (trade.getTradeType() == 3) { //转账
             String toAccount = request.getParameter("toAccount");
             if (!(StringUtils.isNotEmpty(toAccount)) || account.getAccountId().equals(toAccount)) { //转入为空或者转入转出是一个账户
@@ -61,15 +61,21 @@ public class TransferServlet extends HttpServlet {
                 request.getRequestDispatcher("transfer.jsp").forward(request, response);
                 return;
             }
-            flag = ts.transfer(account.getAccountId(), password, toAccount, trade);
+            flag = as.transfer(account.getAccountId(), password, toAccount, trade);
         }
 
         if (flag) {
-            request.setAttribute("msg", "交易成功！");
+            try {
+                double accountMoney = as.getMoney(trade.getAccountId());
+                DecimalFormat df = new DecimalFormat("#.00");
+                request.setAttribute("msg", "交易成功！当前可用余额为：￥" + df.format(accountMoney));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } else {
             if (trade.getTradeType() == 3) {
                 request.setAttribute("failMsg", "交易失败！请检查密码是否正确，转入账户是否存在，余额是否充足!!!");
-            }else {
+            } else {
                 request.setAttribute("failMsg", "交易失败！请检查密码是否正确，余额是否充足!!!");
             }
         }
@@ -78,6 +84,5 @@ public class TransferServlet extends HttpServlet {
         } else {
             request.getRequestDispatcher("access.jsp").forward(request, response);
         }
-
     }
 }

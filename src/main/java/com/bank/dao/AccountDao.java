@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * @date 2021/12/16 下午 2:17
  */
 public class AccountDao {
-    private Conn conn = new Conn();
+    private final Conn conn = new Conn();
     private Connection cn;
     private PreparedStatement ps;
     private ResultSet rs;
