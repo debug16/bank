@@ -1,18 +1,13 @@
 package com.bank.service;
 
 import com.bank.dao.AccountDao;
-import com.bank.dao.TradeDao;
 import com.bank.model.Account;
 import com.bank.model.Trade;
 import com.bank.utils.Conn;
-import com.bank.utils.DateUtils;
-
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 
 /**
  * @author Debug16
@@ -89,8 +84,8 @@ public class AccountService {
             boolean accountFlag = false;
             boolean tradeFlag = false;
 
-            //交易类型不能超出指定范围
-            if (trade.getTradeType() < 1 || trade.getTradeType() > 3) {
+            //交易类型不能超出指定范围 1 存款 2 取款 3转账
+            if (trade.getTradeType() < 1 || trade.getTradeType() > 2) {
                 cn.rollback();
                 Conn.ClossAll(cn, null, null);
                 return false;
