@@ -17,6 +17,12 @@ import java.util.List;
 public class TradeService {
     private final TradeDao td = new TradeDao();
 
+    /**
+     * 添加一条交易记录
+     * @param cn 数据库连接
+     * @param trade 交易记录对象
+     * @return boolean
+     */
     public boolean addTrade(Connection cn, Trade trade) {
         try {
             if (cn != null && !cn.isClosed())
